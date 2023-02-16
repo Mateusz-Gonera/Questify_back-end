@@ -1,8 +1,8 @@
-import Joi, { valid } from "joi";
+import Joi from "joi";
 
 const userSchema = Joi.object({
-	email: Joi.string().email(),
-	password: Joi.string().regex(/^[a-zA-Z0-9]+$/),
+	email: Joi.string().email().required(),
+	password: Joi.string().min(8).max(100).regex(/^[a-zA-Z0-9]*$/).required(),
 	token: Joi.string(),
 });
 
