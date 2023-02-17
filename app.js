@@ -2,6 +2,7 @@ import express from "express";
 import logger from "morgan";
 import cors from "cors";
 import usersRouter from "./routes/api/users.js";
+import cardsRouter from "./routes/api/cards.js";
 
 const app = express();
 
@@ -13,6 +14,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/auth", usersRouter);
+
+app.use("/card", cardsRouter);
 
 app.use((_, res) => {
 	res.status(404).json({
