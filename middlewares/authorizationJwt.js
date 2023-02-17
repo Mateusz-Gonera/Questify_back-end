@@ -28,7 +28,7 @@ export const auth = (req, res, next) => {
 		if (!req.headers.authorization)
 			return res.status(400).json({ message: "No token provided" });
 		const token = req.headers.authorization.slice(7);
-		if (token !== user.token || err || !user)
+		if (token !== user.accessToken || err || !user)
 			return res
 				.status(401)
 				.json({ message: "Unauthorized (invalid access token)" });
