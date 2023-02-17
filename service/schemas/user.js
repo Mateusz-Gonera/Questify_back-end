@@ -3,6 +3,7 @@ import bCrypt from "bcryptjs";
 
 const userSchema = new Schema(
 	{
+		name: { type: String, required: [true, "Name is required"] },
 		email: {
 			type: String,
 			required: [true, "Email is required"],
@@ -16,7 +17,7 @@ const userSchema = new Schema(
 			minLength: 8,
 			maxLength: 100,
 		},
-		token: {
+		accessToken: {
 			type: String,
 			default: null,
 		},
