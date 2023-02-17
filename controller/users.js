@@ -8,12 +8,12 @@ const secret = process.env.SECRET;
 
 export const register = async (req, res, next) => {
 	try {
-		const {name, email, password } = req.body;
+		const { name, email, password } = req.body;
 		const user = await service.getUser({ email });
 		if (user)
 			return res.status(409).json({ message: "Provided email already exists" });
 		const avatarURL = gravatar.url(email, { s: "60", d: "mp" });
-		const newUser = new User({name, email, avatarURL });
+		const newUser = new User({ name, email, avatarURL });
 		newUser.setPassword(password);
 		await newUser.save();
 		res.status(201).json({ email, id: newUser.id });
@@ -44,6 +44,20 @@ export const login = async (req, res, next) => {
 				cards: [],
 			},
 		});
+	} catch (err) {
+		next(err);
+	}
+};
+
+export const logout = async (req, res, next) => {
+	try {
+		const user = await service.getUser({ id: req.user.id });
+		if (!user)
+			return res
+				.status(401)
+				.json({ message: "Unauthorized (invalid access token)" });
+		await service.updateUser(req.user.id, { accessToken: null });
+		res.sendStatus(204);
 	} catch (err) {
 		next(err);
 	}
