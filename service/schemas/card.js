@@ -5,7 +5,6 @@ const cardSchema = new Schema(
 		title: {
 			type: String,
 			required: [true, "Title is required"],
-			unique: true,
 			minLength: 2,
 			maxLength: 100,
 		},
@@ -22,6 +21,7 @@ const cardSchema = new Schema(
 		},
 		date: {
 			type: String,
+			required: [true, "Choose a date"],
 		},
 		time: {
 			type: String,
@@ -29,10 +29,17 @@ const cardSchema = new Schema(
 		type: {
 			type: String,
 			enum: ["Task", "Challenge"],
-			required: [true, "Task or Challenge?"],
+			required: [true, "Which type of task?"],
 			default: "Task",
 		},
-		owner: {},
+		status: {
+			type: String,
+			enum: ["Complete", "Incomplete"],
+			default: "Incomplete",
+		},
+		owner: { type: Schema.Types.ObjectId, ref: "user" },
 	},
 	{ versionKey: false, timestamp: true },
 );
+
+export const Card = model("card", cardSchema);
