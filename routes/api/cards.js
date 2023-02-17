@@ -8,4 +8,6 @@ const router = express.Router();
 
 router.post("/", auth, validateData(cardValidate), controller.create);
 
+router.patch("/:id", auth, controller.edit);
+
 export default router;
