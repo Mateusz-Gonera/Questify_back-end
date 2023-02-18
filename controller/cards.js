@@ -25,3 +25,12 @@ export const edit = async (req, res, next) => {
 		next(err);
 	}
 };
+
+export const getAll = async (req, res, next) => {
+	try {
+		const allCards = await service.getAllCards();
+		res.status(201).json({cards: allCards});
+	} catch (err) {
+		next(err);
+	}
+};
