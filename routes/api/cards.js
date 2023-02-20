@@ -14,4 +14,6 @@ router.get("/", auth, controller.getAll);
 
 router.patch("/complete/:id", auth, controller.complete);
 
+router.delete("/:id", auth, controller.deleteOne);
+
 export default router;

@@ -54,3 +54,19 @@ export const complete = async (req, res, next) => {
 		next(err);
 	}
 };
+
+export const deleteOne = async (req, res, next) => {
+	try {
+		const { id } = req.params;
+		if (!req.params) return res.status(400).json({ message: "Bad request" });
+		const card = await service.deleteCard(id);
+		if (!card) return res.status(400).json({ message: "Invalid cardID" });
+		const allCards = await service.getAllCards(req.user.id);
+		await updateUser(req.user.id, {
+			"userData.cards": [...allCards],
+		});
+		res.status(204).json({ message: "Successfull operation" });
+	} catch (err) {
+		next(err);
+	}
+};

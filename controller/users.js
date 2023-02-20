@@ -25,7 +25,7 @@ export const register = async (req, res, next) => {
 export const login = async (req, res, next) => {
 	try {
 		const { email, password } = req.body;
-		const user = await service.getUser({ "userData.email": email  });
+		const user = await service.getUser({ "userData.email": email });
 		if (!user) return res.status(403).json({ message: "Email doesn't exist" });
 		if (!user.validPassword(password))
 			return res.status(403).json({ message: "Password is wrong" });
@@ -57,7 +57,7 @@ export const logout = async (req, res, next) => {
 				.status(401)
 				.json({ message: "Unauthorized (invalid access token)" });
 		await service.updateUser(req.user.id, { accessToken: null });
-		res.sendStatus(204);
+		res.status(204).json({ message: "Successful operation" });
 	} catch (err) {
 		next(err);
 	}
