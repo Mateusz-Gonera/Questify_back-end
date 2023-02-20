@@ -41,3 +41,16 @@ export const getAll = async (req, res, next) => {
 		next(err);
 	}
 };
+
+export const complete = async (req, res, next) => {
+	try {
+		const { id } = req.params;
+		if (!req.params) return res.status(400).json({ message: "Bad request" });
+		const card = await service.editCard(id, { status: "Complete" });
+		res.status(200).json({
+			createdCard: card,
+		});
+	} catch (err) {
+		next(err);
+	}
+};

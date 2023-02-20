@@ -12,4 +12,6 @@ router.patch("/:id", auth, controller.edit);
 
 router.get("/", auth, controller.getAll);
 
+router.patch("/complete/:id", auth, controller.complete);
+
 export default router;
