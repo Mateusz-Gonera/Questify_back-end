@@ -25,10 +25,6 @@ export const edit = async (req, res, next) => {
 		if (!req.body || !req.params)
 			return res.status(400).json({ message: "Bad request" });
 		const card = await service.editCard(id, req.body);
-		const allCards = await service.getAllCards(req.user.id);
-		await updateUser(req.user.id, {
-			"userData.cards": [...allCards],
-		});
 		res.status(200).json({
 			createdCard: card,
 		});
