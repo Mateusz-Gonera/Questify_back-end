@@ -3,13 +3,9 @@ import bCrypt from "bcryptjs";
 
 const userSchema = new Schema(
 	{
-		name: { type: String, required: [true, "Name is required"] },
-		email: {
+		accessToken: {
 			type: String,
-			required: [true, "Email is required"],
-			unique: true,
-			minLength: 3,
-			maxLength: 254,
+			default: null,
 		},
 		password: {
 			type: String,
@@ -17,11 +13,18 @@ const userSchema = new Schema(
 			minLength: 8,
 			maxLength: 100,
 		},
-		accessToken: {
-			type: String,
-			default: null,
+		userData: {
+			name: { type: String, required: [true, "Name is required"] },
+			email: {
+				type: String,
+				required: [true, "Email is required"],
+				unique: true,
+				minLength: 3,
+				maxLength: 254,
+			},
+			avatarURL: { type: String },
+			cards: [{ type: Schema.Types.ObjectId, ref: "card" }],
 		},
-		avatarURL: { type: String },
 	},
 	{ versionKey: false, timestamp: true },
 );

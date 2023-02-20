@@ -9,14 +9,14 @@ const secret = process.env.SECRET;
 export const register = async (req, res, next) => {
 	try {
 		const { name, email, password } = req.body;
-		const user = await service.getUser({ email });
+		const user = await service.getUser({ "userData.email": email });
 		if (user)
 			return res.status(409).json({ message: "Provided email already exists" });
 		const avatarURL = gravatar.url(email, { s: "60", d: "mp" });
-		const newUser = new User({ name, email, avatarURL });
+		const newUser = new User({ userData: { name, email, avatarURL } });
 		newUser.setPassword(password);
 		await newUser.save();
-		res.status(201).json({ email, id: newUser.id });
+		res.status(201).json({ email: newUser.userData.email, id: newUser.id });
 	} catch (err) {
 		next(err);
 	}
@@ -25,14 +25,14 @@ export const register = async (req, res, next) => {
 export const login = async (req, res, next) => {
 	try {
 		const { email, password } = req.body;
-		const user = await service.getUser({ email });
+		const user = await service.getUser({ "userData.email": email  });
 		if (!user) return res.status(403).json({ message: "Email doesn't exist" });
 		if (!user.validPassword(password))
 			return res.status(403).json({ message: "Password is wrong" });
 
 		const payload = {
 			id: user.id,
-			email: user.email,
+			email: user.userData.email,
 		};
 		const accessToken = jwt.sign(payload, secret, { expiresIn: "1h" });
 		await service.updateUser(user.id, { accessToken });
@@ -41,7 +41,7 @@ export const login = async (req, res, next) => {
 			userData: {
 				email,
 				id: user.id,
-				cards: [],
+				cards: user.userData.cards,
 			},
 		});
 	} catch (err) {

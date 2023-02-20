@@ -10,4 +10,6 @@ router.post("/", auth, validateData(cardValidate), controller.create);
 
 router.patch("/:id", auth, controller.edit);
 
+router.get("/", auth, controller.getAll);
+
 export default router;
