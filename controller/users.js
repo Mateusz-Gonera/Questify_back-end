@@ -39,9 +39,11 @@ export const login = async (req, res, next) => {
 		res.status(200).json({
 			accessToken,
 			userData: {
+				name: user.userData.name,
 				email,
 				id: user.id,
 				cards: user.userData.cards,
+				avatarURL: user.userData.avatarURL,
 			},
 		});
 	} catch (err) {
