@@ -1,8 +1,20 @@
 import express from "express";
 import logger from "morgan";
 import cors from "cors";
-import usersRouter from "./routes/api/users.js";
-import cardsRouter from "./routes/api/cards.js";
+import usersRouter from "../routes/api/users.js";
+import cardsRouter from "../routes/api/cards.js";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import serverless from "serverless-http";
+
+dotenv.config();
+
+const PORT = process.env.PORT || 3000;
+const uriDb = process.env.DB_HOST;
+
+mongoose.connect(uriDb, () => {
+	console.log("\nDatabase connection successful.\n");
+});
 
 const app = express();
 
@@ -13,9 +25,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/auth", usersRouter);
+app.use("/.netlify/functions/app/auth", usersRouter);
 
-app.use("/card", cardsRouter);
+app.use("/.netlify/functions/app/card", cardsRouter);
 
 app.use((_, res) => {
 	res.status(404).json({
@@ -37,3 +49,4 @@ app.use((err, _, res, __) => {
 });
 
 export default app;
+export const handler = serverless(app);
