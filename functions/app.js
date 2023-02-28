@@ -25,8 +25,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.set("/.netlify/functions/app/auth", usersRouter);
-app.set("/.netlify/functions/app/card", cardsRouter);
+app.use("/.netlify/functions/app/auth", usersRouter);
+app.use("/.netlify/functions/app/card", cardsRouter);
 
 app.use((_, res) => {
 	res.status(404).json({
