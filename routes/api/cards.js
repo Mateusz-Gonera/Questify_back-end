@@ -4,7 +4,7 @@ import { validateData } from "../../middlewares/validator.js";
 import { cardValidate } from "../../utils/validator.js";
 import { auth } from "../../middlewares/authorizationJwt.js";
 
-const router = express.Router();
+export const router = express.Router();
 
 router.post("/", auth, validateData(cardValidate), controller.create);
 
@@ -16,4 +16,3 @@ router.patch("/complete/:id", auth, controller.complete);
 
 router.delete("/:id", auth, controller.deleteOne);
 
-export default router;
