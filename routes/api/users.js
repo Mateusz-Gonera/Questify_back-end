@@ -12,4 +12,4 @@ router.post("/login", validateData(userValidate), controller.login);
 
 router.post("/logout", auth, controller.logout);
 
-export default router;
+export default route;
