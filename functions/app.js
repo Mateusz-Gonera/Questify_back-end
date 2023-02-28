@@ -25,8 +25,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/.netlify/functions/app/auth", usersRouter);
-app.use("/.netlify/functions/app/card", cardsRouter);
 
 app.use((_, res) => {
 	res.status(404).json({
@@ -46,6 +44,9 @@ app.use((err, _, res, __) => {
 		data: "Internal Server Error",
 	});
 });
+
+app.use("/.netlify/functions/app/auth", usersRouter);
+app.use("/.netlify/functions/app/card", cardsRouter);
 
 export default app;
 export const handler = serverless(app);
