@@ -12,7 +12,7 @@
   "consumes" : [ "application/json" ],
   "produces" : [ "application/json" ],
   "servers" : [ {
-    "url" : "https://questify-grupa3.netlify.app/.netlify/functions/app/api-docs"
+    "url" : "https://questify-grupa3.netlify.app/.netlify/functions/app/"
   } ],
   "tags" : [ {
     "name" : "Auth",
