@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "version" : "2.0.2",
-    "title" : "Questify API docs",
+    "title" : "Questify API team 3 docs",
     "description" : "API documentation for GoIT project 'Questify'. [Backend github repository](https://github.com/Mateusz-Gonera/Questify_back-end)",
     "license" : {
       "name" : "MIT",
@@ -12,7 +12,7 @@
   "consumes" : [ "application/json" ],
   "produces" : [ "application/json" ],
   "servers" : [ {
-    "url" : "https://questify-grupa3.netlify.app"
+    "url" : "https://questify-grupa3.netlify.app/.netlify/functions/app/api-docs"
   } ],
   "tags" : [ {
     "name" : "Auth",

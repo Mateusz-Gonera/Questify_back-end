@@ -6,6 +6,8 @@ import cardsRouter from "../routes/api/cards.js";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import serverless from "serverless-http";
+import swaggerUI from "swagger-ui-express";
+import swaggerDocument from "../swagger.json" assert { type: "json" };
 
 dotenv.config();
 
@@ -25,6 +27,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use(
+	"/.netlify/functions/app/api-docs",
+	swaggerUI.serve,
+	swaggerUI.setup(swaggerDocument),
+);
 app.use("/.netlify/functions/app/auth", usersRouter);
 app.use("/.netlify/functions/app/card", cardsRouter);
 
